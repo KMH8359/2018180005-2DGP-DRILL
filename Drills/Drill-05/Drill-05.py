@@ -44,7 +44,7 @@ def handle_events():
 
                 running = True
                 
-            dirX, dirY = event.x, KPU_HEIGHT - 1 - event.y
+            dirX, dirY = event.x - 20, KPU_HEIGHT - 1 - event.y + 20
 
             if dirX < charX:
 
