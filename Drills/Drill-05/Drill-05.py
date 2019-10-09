@@ -16,6 +16,12 @@ def handle_events():
 
     global x, y
 
+    global dirX, dirY
+
+    global charX, charY
+
+    global chardir
+
     events = get_events()
 
     for event in events:
@@ -37,8 +43,16 @@ def handle_events():
             if running == False:
 
                 running = True
+                
+            dirX, dirY = event.x, KPU_HEIGHT - 1 - event.y
 
+            if dirX < charX:
 
+                chardir = 0
+
+            elif dirX > charX:
+
+                chardir = 1
 
 
 open_canvas(KPU_WIDTH, KPU_HEIGHT)
@@ -57,6 +71,10 @@ process = True
 
 x, y = KPU_WIDTH // 2, KPU_HEIGHT // 2
 
+dirX, dirY = 0, 0
+
+charX, charY = KPU_WIDTH // 2, KPU_HEIGHT // 2
+
 frame = 0
 
 chardir = 1
@@ -73,7 +91,19 @@ while process:
 
     cursor.draw(x,y)
 
-    character.clip_draw(frame * 100, 100 * chardir, 100, 100, x, y)
+    if dirX:
+
+        if dirX == charX and dirY == charY:
+
+            dirX = 0
+
+            dirY = 0
+
+        charX += (dirX - charX) / 100
+
+        charY += (dirY - charY) / 100
+
+    character.clip_draw(frame * 100, 100 * chardir, 100, 100, charX, charY)
 
     update_canvas()
 
