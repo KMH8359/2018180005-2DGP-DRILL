@@ -38,14 +38,7 @@ chardir = 1
 size = 10
 frame = 0
 points = [(random.randint(0, 1280), random.randint(0, 1024)) for i in range(size)]
-#turtle.setup(1280, 1024)
 while process:
-    #clear_canvas()
-    #kpu_ground.draw(KPU_WIDTH // 2, KPU_HEIGHT // 2)
-    #move_character_to_points(points[0],points[1],points[2],points[3],points[4],points[5],points[6],points[7],points[8],points[9])
-    #character.clip_draw(frame * 100, 100 * chardir, 100, 100, charX, charY)
-    #update_canvas()
-    #frame = (frame + 1) % 8
     
         # draw p1-p2
     if points[0][0] < points[1][0]:
@@ -53,8 +46,8 @@ while process:
     elif points[0][0] > points[1][0]:
         chardir = 0
             
-    for i in range(0, 500, 1):
-        t = i / 500
+    for i in range(0, 1000, 1):
+        t = i / 1000
         clear_canvas()
         kpu_ground.draw(KPU_WIDTH // 2, KPU_HEIGHT // 2)
         x = ((-t**3 + 2*t**2 - t)*points[0][0] + (3*t**3 - 5*t**2 + 2)*points[1][0] + (-3*t**3 + 4*t**2 + t)*points[2][0] + (t**3 - t**2)*points[3][0])/2
@@ -62,15 +55,15 @@ while process:
         character.clip_draw(frame * 100, 100 * chardir, 100, 100, x, y)
         update_canvas()
         frame = (frame + 1) % 8
-    #draw_point(p2)
+
     if points[1][0] < points[2][0]:
          chardir = 1
     elif points[1][0] > points[2][0]:
          chardir = 0
             
     # draw p2-p3
-    for i in range(0, 500, 1):
-        t = i / 500
+    for i in range(0, 1000, 1):
+        t = i / 1000
         clear_canvas()
         kpu_ground.draw(KPU_WIDTH // 2, KPU_HEIGHT // 2)
         x = ((-t**3 + 2*t**2 - t)*points[1][0] + (3*t**3 - 5*t**2 + 2)*points[2][0] + (-3*t**3 + 4*t**2 + t)*points[3][0] + (t**3 - t**2)*points[4][0])/2
@@ -78,7 +71,7 @@ while process:
         character.clip_draw(frame * 100, 100 * chardir, 100, 100, x, y)
         update_canvas()
         frame = (frame + 1) % 8
-    #draw_point(p3)
+
     if points[2][0] < points[3][0]:
         chardir = 1
     elif points[2][0] > points[3][0]:
@@ -86,8 +79,8 @@ while process:
         
 
     # draw p3-p4
-    for i in range(0, 500, 1):
-        t = i / 500
+    for i in range(0, 1000, 1):
+        t = i / 1000
         clear_canvas()
         kpu_ground.draw(KPU_WIDTH // 2, KPU_HEIGHT // 2)
         x = ((-t**3 + 2*t**2 - t)*points[2][0] + (3*t**3 - 5*t**2 + 2)*points[3][0] + (-3*t**3 + 4*t**2 + t)*points[4][0] + (t**3 - t**2)*points[5][0])/2
@@ -95,15 +88,15 @@ while process:
         character.clip_draw(frame * 100, 100 * chardir, 100, 100, x, y)
         update_canvas()
         frame = (frame + 1) % 8
-    #draw_point(p4)
+  
     if points[3][0] < points[4][0]:
         chardir = 1
     elif points[3][0] > points[4][0]:
         chardir = 0
 
     # draw p4-p5
-    for i in range(0, 500, 1):
-        t = i / 500
+    for i in range(0, 1000, 1):
+        t = i / 1000
         clear_canvas()
         kpu_ground.draw(KPU_WIDTH // 2, KPU_HEIGHT // 2)
         x = ((-t**3 + 2*t**2 - t)*points[3][0] + (3*t**3 - 5*t**2 + 2)*points[4][0] + (-3*t**3 + 4*t**2 + t)*points[5][0] + (t**3 - t**2)*points[6][0])/2
@@ -118,8 +111,8 @@ while process:
         chardir = 0
     
     # draw p5-p6
-    for i in range(0, 500, 2):
-        t = i / 500
+    for i in range(0, 1000, 2):
+        t = i / 1000
         clear_canvas()
         kpu_ground.draw(KPU_WIDTH // 2, KPU_HEIGHT // 2)
         x = ((-t**3 + 2*t**2 - t)*points[4][0] + (3*t**3 - 5*t**2 + 2)*points[5][0] + (-3*t**3 + 4*t**2 + t)*points[6][0] + (t**3 - t**2)*points[7][0])/2
@@ -134,8 +127,8 @@ while process:
         chardir = 0
 
     # draw p6-p7
-    for i in range(0, 500, 1):
-        t = i / 500
+    for i in range(0, 1000, 1):
+        t = i / 1000
         clear_canvas()
         kpu_ground.draw(KPU_WIDTH // 2, KPU_HEIGHT // 2)
         x = ((-t**3 + 2*t**2 - t)*points[5][0] + (3*t**3 - 5*t**2 + 2)*points[6][0] + (-3*t**3 + 4*t**2 + t)*points[7][0] + (t**3 - t**2)*points[8][0])/2
@@ -150,8 +143,8 @@ while process:
         chardir = 0
 
     # draw p7-p8
-    for i in range(0, 500, 1):
-        t = i / 500
+    for i in range(0, 1000, 1):
+        t = i / 1000
         clear_canvas()
         kpu_ground.draw(KPU_WIDTH // 2, KPU_HEIGHT // 2)
         x = ((-t**3 + 2*t**2 - t)*points[6][0] + (3*t**3 - 5*t**2 + 2)*points[7][0] + (-3*t**3 + 4*t**2 + t)*points[8][0] + (t**3 - t**2)*points[9][0])/2
@@ -166,8 +159,8 @@ while process:
         chardir = 0
 
     # draw p8-p9
-    for i in range(0, 500, 1):
-        t = i / 500
+    for i in range(0, 1000, 1):
+        t = i / 1000
         clear_canvas()
         kpu_ground.draw(KPU_WIDTH // 2, KPU_HEIGHT // 2)
         x = ((-t**3 + 2*t**2 - t)*points[7][0] + (3*t**3 - 5*t**2 + 2)*points[8][0] + (-3*t**3 + 4*t**2 + t)*points[9][0] + (t**3 - t**2)*points[0][0])/2
@@ -182,8 +175,8 @@ while process:
         chardir = 0
 
     # draw p9-p10
-    for i in range(0, 500, 1):
-        t = i / 500
+    for i in range(0, 1000, 1):
+        t = i / 1000
         clear_canvas()
         kpu_ground.draw(KPU_WIDTH // 2, KPU_HEIGHT // 2)
         x = ((-t**3 + 2*t**2 - t)*points[8][0] + (3*t**3 - 5*t**2 + 2)*points[9][0] + (-3*t**3 + 4*t**2 + t)*points[0][0] + (t**3 - t**2)*points[1][0])/2
@@ -198,8 +191,8 @@ while process:
         chardir = 0
 
     # draw p10-p1
-    for i in range(0, 500, 1):
-        t = i / 500
+    for i in range(0, 1000, 1):
+        t = i / 1000
         clear_canvas()
         kpu_ground.draw(KPU_WIDTH // 2, KPU_HEIGHT // 2)
         x = ((-t**3 + 2*t**2 - t)*points[9][0] + (3*t**3 - 5*t**2 + 2)*points[0][0] + (-3*t**3 + 4*t**2 + t)*points[1][0] + (t**3 - t**2)*points[2][0])/2
