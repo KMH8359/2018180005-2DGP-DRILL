@@ -2,8 +2,6 @@ import random
 import json
 import os
 
-savedX = 0
-
 from pico2d import *
 
 import game_framework
@@ -24,8 +22,6 @@ class Grass:
     def draw(self):
         self.image.draw(400, 30)
 
-
-
 class Boy:
     def __init__(self):
         self.x = 0
@@ -34,6 +30,7 @@ class Boy:
         self.image = load_image('run_animation.png')
         self.dir = 1
     def update(self):
+        global savedX
         self.frame = (self.frame + 1) % 8
         self.x += self.dir
         savedX = self.x
@@ -41,7 +38,6 @@ class Boy:
             self.dir = -1
         elif self.x <= 0:
             self.dir = 1
-
     def draw(self):
         self.image.clip_draw(self.frame * 100, 0, 100, 100, self.x, self.y)
 
@@ -73,7 +69,7 @@ def handle_events():
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.change_state(title_state)
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_p:         
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_p:
             game_framework.push_state(pause_state)
 
 
@@ -82,10 +78,8 @@ def update():
 
 
 def draw():
-    clear_canvas()
     grass.draw()
     boy.draw()
-    update_canvas()
 
 
 

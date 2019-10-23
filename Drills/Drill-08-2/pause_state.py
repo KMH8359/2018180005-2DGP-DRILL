@@ -12,14 +12,19 @@ import main_state
 name = "PauseState"
 
 pause = None
+showImage = 0
 
 class Pause:
     def __init__(self):
-        self.image = load_image('pause.png')
-        
+        self.image = load_image('pause.png')    
     def draw(self):
-        self.image.clip_draw(250,300,400,300,400,300,300,300)
-
+        global showImage
+        if (showImage / 5) % 2 == 0:
+            self.image.clip_draw(250,250,400,400,400,350,400,400)
+    def update(self):
+        global showImage
+        showImage += 1
+        
 def enter():
     global pause
     pause = Pause()
@@ -29,7 +34,7 @@ def exit():
     del(pause)
 
 def update():
-    pass
+    pause.update()
 
 def pause():
     pass
@@ -48,6 +53,5 @@ def handle_events():
             game_framework.pop_state()
 
 def draw():
-    clear_canvas()
+    main_state.draw()
     pause.draw()
-    update_canvas()
