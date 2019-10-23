@@ -2,19 +2,19 @@ import random
 import json
 import os
 
+savedX = 0
+
 from pico2d import *
 
 import game_framework
 import title_state
-
-
+import pause_state
 
 name = "MainState"
 
 boy = None
 grass = None
 font = None
-
 
 
 class Grass:
@@ -28,14 +28,15 @@ class Grass:
 
 class Boy:
     def __init__(self):
-        self.x, self.y = 0, 90
+        self.x = 0
+        self.y = 90
         self.frame = 0
         self.image = load_image('run_animation.png')
         self.dir = 1
-
     def update(self):
         self.frame = (self.frame + 1) % 8
         self.x += self.dir
+        savedX = self.x
         if self.x >= 800:
             self.dir = -1
         elif self.x <= 0:
@@ -72,7 +73,8 @@ def handle_events():
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.change_state(title_state)
-
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_p:         
+            game_framework.push_state(pause_state)
 
 
 def update():

@@ -18,7 +18,7 @@ class Pause:
         self.image = load_image('pause.png')
         
     def draw(self):
-        self.image.draw(400,300)
+        self.image.clip_draw(250,300,400,300,400,300)
 
 def enter():
     global pause
