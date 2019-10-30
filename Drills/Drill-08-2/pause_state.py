@@ -20,7 +20,7 @@ class Pause:
     def draw(self):
         global showImage
         if (showImage / 5) % 2 == 0:
-            self.image.clip_draw(250,250,400,400,400,350,400,400)
+            self.image.clip_draw(150,150,600,600,400,350,400,400)
     def update(self):
         global showImage
         showImage += 1
