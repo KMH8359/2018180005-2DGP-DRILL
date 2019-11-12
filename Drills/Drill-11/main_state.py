@@ -87,8 +87,15 @@ def update():
         if collide(brick, ball) and brick.y < ball.y:
             ball.stop()
             ball.onBrick = True
-    if  collide(boy, grass) and boy.jumppower < 0:
+    if collide(boy, grass) and boy.jumppower < 0:
         boy.jumping = False
+    if boy.y > brick.y + 50:
+        if collide(boy, brick) and boy.jumppower < 0:
+            boy.onBrick = True
+            boy.jumping = False
+        else:
+            boy.onBrick = False
+            boy.jumping = True
 
 def draw():
     clear_canvas()

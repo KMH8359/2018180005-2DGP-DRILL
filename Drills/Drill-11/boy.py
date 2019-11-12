@@ -46,7 +46,7 @@ class IdleState:
             boy.velocity += RUN_SPEED_PPS
         elif event == SPACE:
             boy.jumping = True
-            boy.jumppower = 400
+            boy.jumppower = 600
         boy.timer = 1000
 
     @staticmethod
@@ -57,9 +57,11 @@ class IdleState:
     def do(boy):
         boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
         boy.timer -= 1
+        if boy.onBrick == True:
+            boy.x += brick.speed * game_framework.frame_time
         if boy.jumping == True:
             boy.y += boy.jumppower * game_framework.frame_time
-            boy.jumppower -= 1
+            boy.jumppower -= 2
         if boy.timer == 0:
             boy.add_event(SLEEP_TIMER)
 
@@ -85,7 +87,7 @@ class RunState:
             boy.velocity += RUN_SPEED_PPS
         elif event == SPACE:
             boy.jumping = True
-            boy.jumppower = 400
+            boy.jumppower = 600
         boy.dir = clamp(-1, boy.velocity, 1)
 
     @staticmethod
@@ -98,9 +100,11 @@ class RunState:
         boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
         boy.x += boy.velocity * game_framework.frame_time
         boy.x = clamp(25, boy.x, 1600 - 25)
+        if boy.onBrick == True:
+            boy.x += brick.speed * game_framework.frame_time
         if boy.jumping == True:
             boy.y += boy.jumppower * game_framework.frame_time
-            boy.jumppower -= 1
+            boy.jumppower -= 2
 
     @staticmethod
     def draw(boy):
@@ -123,6 +127,11 @@ class SleepState:
     @staticmethod
     def do(boy):
         boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
+        if boy.onBrick == True:
+            boy.x += brick.speed * game_framework.frame_time
+        if boy.jumping == True:
+            boy.y += boy.jumppower * game_framework.frame_time
+            boy.jumppower -= 2
 
     @staticmethod
     def draw(boy):
@@ -153,6 +162,7 @@ class Boy:
         self.dir = 1
         self.jumppower = 0
         self.jumping = False
+        self.onBrick = False
         self.velocity = 0
         self.frame = 0
         self.event_que = []
