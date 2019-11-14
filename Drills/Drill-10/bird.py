@@ -68,15 +68,7 @@ class RunState:
 
     @staticmethod
     def enter(bird, event):
-        if event == RIGHT_DOWN:
-            bird.velocity += RUN_SPEED_PPS
-        elif event == LEFT_DOWN:
-            bird.velocity -= RUN_SPEED_PPS
-        elif event == RIGHT_UP:
-            bird.velocity -= RUN_SPEED_PPS
-        elif event == LEFT_UP:
-            bird.velocity += RUN_SPEED_PPS
-        bird.dir = clamp(-1, bird.velocity, 1)
+        pass
 
     @staticmethod
     def exit(bird, event):
@@ -88,11 +80,15 @@ class RunState:
         bird.frame1 = bird.frame % 5
         bird.frame2 = bird.frame // 5
         bird.x += bird.velocity * game_framework.frame_time
-        bird.x = clamp(25, bird.x, 1600 - 25)
+        bird.x = clamp(100, bird.x, 1600 - 100)
+        if bird.x == 1600 - 100:
+            bird.velocity = -1 * RUN_SPEED_PPS
+        if bird.x == 100:
+            bird.velocity = RUN_SPEED_PPS
 
     @staticmethod
     def draw(bird):
-        if bird.dir == 1:
+        if bird.velocity > 0:
             bird.image.clip_draw(int(bird.frame1) * 183, 338 - 169 * int(bird.frame2), 180, 169, bird.x, bird.y)
         else:
             bird.image.clip_composite_draw(int(bird.frame1) * 183, 338 - 169 * int(bird.frame2), 180, 169,
@@ -100,8 +96,8 @@ class RunState:
 
 
 next_state_table = {
-    IdleState: {RIGHT_UP: RunState, LEFT_UP: RunState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState},
-    RunState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: IdleState, RIGHT_DOWN: IdleState},
+    #IdleState: {RIGHT_UP: RunState, LEFT_UP: RunState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState},
+    RunState: {RIGHT_UP: RunState, LEFT_UP: RunState, LEFT_DOWN: RunState, RIGHT_DOWN: RunState},
 
 }
 
@@ -113,12 +109,12 @@ class Bird:
         self.image = load_image('bird_animation.png')
         self.font = load_font('ENCR10B.TTF', 16)
         self.dir = 1
-        self.velocity = 0
+        self.velocity = RUN_SPEED_PPS
         self.frame = 0
         self.frame1 = 0
         self.frame2 = 0
         self.event_que = []
-        self.cur_state = IdleState
+        self.cur_state = RunState
         self.cur_state.enter(self, None)
 
     def fire_ball(self):
