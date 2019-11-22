@@ -9,15 +9,14 @@ import game_world
 from boy import Boy
 from ground import Ground
 from zombie import Zombie
-from ball import Ball
-
+from ball import Ball, BigBall
 
 name = "MainState"
 
 boy = None
 zombie = None
 balls = []
-
+removecount = 0
 
 def collide(a, b):
     # fill here
@@ -32,10 +31,11 @@ def collide(a, b):
     return True
 
 
-
 def get_boy():
     return boy
 
+def get_zombie():
+    return zombie
 
 def get_balls():
     return balls
@@ -51,14 +51,16 @@ def enter():
     game_world.add_object(zombie, 1)
 
     global balls
-    balls = [Ball() for i in range(10)]
+    balls = [BigBall() for i in range(5)] + [Ball() for i in range(5)]
     game_world.add_objects(balls, 1)
 
     ground = Ground()
     game_world.add_object(ground, 0)
 
+
 def exit():
     game_world.clear()
+
 
 def pause():
     pass
@@ -74,25 +76,34 @@ def handle_events():
         if event.type == SDL_QUIT:
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-                game_framework.quit()
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_LSHIFT:
-                zombie.HP += 100
+            game_framework.quit()
         else:
             boy.handle_event(event)
 
 
 def update():
+    global removecount
     for game_object in game_world.all_objects():
         game_object.update()
     for ball in balls:
-        if collide(ball, boy):
-            boy.HP += 100
-            balls.remove(ball)
-            game_world.remove_object(ball)
-        elif collide(ball, zombie):
-            zombie.HP += 100
-            balls.remove(ball)
-            game_world.remove_object(ball)
+        if ball.type == 'BigBall':
+            if collide(ball, zombie):
+                zombie.HP += ball.HP
+                balls.remove(ball)
+                game_world.remove_object(ball)
+                removecount += 1
+        elif ball.type == 'Ball':
+            if collide(ball, zombie) and removecount >= 5:
+                zombie.HP += ball.HP
+                balls.remove(ball)
+                game_world.remove_object(ball)
+                removecount += 1
+    if collide(zombie, boy) and zombie.HP > 0:
+        if removecount < 10:
+            game_world.remove_object(zombie)
+        else:
+            game_framework.quit()
+
 
 
 def draw():
@@ -100,9 +111,3 @@ def draw():
     for game_object in game_world.all_objects():
         game_object.draw()
     update_canvas()
-
-
-
-
-
-

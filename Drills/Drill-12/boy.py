@@ -112,7 +112,6 @@ class Boy:
         self.x_velocity, self.y_velocity = 0, 0
         self.frame = 0
         self.event_que = []
-        self.HP = 500
         self.cur_state = WalkingState
         self.cur_state.enter(self, None)
 
@@ -134,7 +133,6 @@ class Boy:
 
     def draw(self):
         self.cur_state.draw(self)
-        self.font.draw(self.x - 50, self.y + 70, '(HP: %d)' % self.HP, (255, 255, 0))
         #fill here
         draw_rectangle(*self.get_bb())
         #debug_print('Velocity :' + str(self.velocity) + '  Dir:' + str(self.dir) + ' Frame Time:' + str(game_framework.frame_time))
