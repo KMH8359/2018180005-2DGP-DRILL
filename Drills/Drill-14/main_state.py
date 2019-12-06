@@ -49,6 +49,7 @@ def enter():
 
 def exit():
     game_world.clear()
+    pass
 
 def pause():
     pass
